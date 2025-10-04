@@ -43,11 +43,11 @@ This guide will help you deploy your n8n automation platform to Render using the
    Plan: Starter (free) or Standard/Pro for production
    ```
 
-3. **Add PostgreSQL Database**:
-   - Go to "New +" → "PostgreSQL"
-   - Name: `n8n-postgres`
-   - Plan: Starter (free) or Standard/Pro for production
-   - Note the connection details
+3. **PostgreSQL Database** (Already Created):
+   - ✅ Database: `n8n_t4jt`
+   - ✅ Host: `dpg-d3glauvdiees73d7vadg-a.oregon-postgres.render.com`
+   - ✅ Username: `n8n`
+   - ✅ Password: `Z5Qro7d3h3USCCQ75iR05H5rVfMC58ZN`
 
 4. **Set Environment Variables**:
    In your web service settings, add these environment variables:
@@ -66,13 +66,13 @@ This guide will help you deploy your n8n automation platform to Render using the
    N8N_BASIC_AUTH_PASSWORD=your_generated_password_here
    N8N_ENCRYPTION_KEY=your_generated_encryption_key_here
    
-   # Database (from your PostgreSQL service)
+   # Database (using your existing PostgreSQL database)
    DB_TYPE=postgresdb
-   DB_POSTGRESDB_HOST=your_postgres_host
+   DB_POSTGRESDB_HOST=dpg-d3glauvdiees73d7vadg-a.oregon-postgres.render.com
    DB_POSTGRESDB_PORT=5432
-   DB_POSTGRESDB_DATABASE=your_database_name
-   DB_POSTGRESDB_USER=your_database_user
-   DB_POSTGRESDB_PASSWORD=your_database_password
+   DB_POSTGRESDB_DATABASE=n8n_t4jt
+   DB_POSTGRESDB_USER=n8n
+   DB_POSTGRESDB_PASSWORD=Z5Qro7d3h3USCCQ75iR05H5rVfMC58ZN
    
    # URLs (replace with your actual Render app URL)
    WEBHOOK_URL=https://your-n8n-app.onrender.com

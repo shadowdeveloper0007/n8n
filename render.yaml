@@ -35,29 +35,19 @@ services:
       - key: N8N_ENCRYPTION_KEY
         sync: false  # Set manually in Render dashboard
       
-      # Database Configuration (Set these in Render dashboard)
+      # Database Configuration (Using your existing PostgreSQL database)
       - key: DB_TYPE
         value: postgresdb
       - key: DB_POSTGRESDB_HOST
-        fromDatabase:
-          name: n8n-postgres
-          property: host
+        value: dpg-d3glauvdiees73d7vadg-a.oregon-postgres.render.com
       - key: DB_POSTGRESDB_PORT
-        fromDatabase:
-          name: n8n-postgres
-          property: port
+        value: 5432
       - key: DB_POSTGRESDB_DATABASE
-        fromDatabase:
-          name: n8n-postgres
-          property: database
+        value: n8n_t4jt
       - key: DB_POSTGRESDB_USER
-        fromDatabase:
-          name: n8n-postgres
-          property: user
+        value: n8n
       - key: DB_POSTGRESDB_PASSWORD
-        fromDatabase:
-          name: n8n-postgres
-          property: password
+        value: Z5Qro7d3h3USCCQ75iR05H5rVfMC58ZN
       
       # Webhook URL (Will be set automatically by Render)
       - key: WEBHOOK_URL
@@ -69,12 +59,11 @@ services:
       - key: N8N_USER_FOLDER
         value: /opt/render/project/src/.n8n
 
-  # PostgreSQL Database
-  - type: pserv
-    name: n8n-postgres
-    env: postgresql
-    plan: starter  # Change to 'standard' or 'pro' for production
-    ipAllowList: []  # Allow all IPs (or restrict to your app's IP)
+  # PostgreSQL Database (Already created - using existing credentials)
+  # Database: n8n_t4jt
+  # Host: dpg-d3glauvdiees73d7vadg-a.oregon-postgres.render.com
+  # Username: n8n
+  # Password: Z5Qro7d3h3USCCQ75iR05H5rVfMC58ZN
 
 # Optional: Redis for queue processing (uncomment if needed)
 # services:
