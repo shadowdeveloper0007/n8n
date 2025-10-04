@@ -1,0 +1,26 @@
+{
+  "name": "n8n-render-deployment",
+  "version": "1.0.0",
+  "description": "n8n automation platform deployed on Render",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'No build step required for n8n'",
+    "dev": "n8n start"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "n8n": "^1.50.0",
+    "pg": "^8.11.3"
+  },
+  "keywords": [
+    "n8n",
+    "automation",
+    "workflow",
+    "render"
+  ],
+  "author": "",
+  "license": "MIT"
+}

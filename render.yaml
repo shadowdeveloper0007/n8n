@@ -1,0 +1,90 @@
+# Render Infrastructure Configuration for n8n
+# This file defines the services needed for n8n deployment
+
+services:
+  # Main n8n Web Service
+  - type: web
+    name: n8n-automation
+    env: node
+    plan: starter  # Change to 'standard' or 'pro' for production
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      # Basic Configuration
+      - key: NODE_ENV
+        value: production
+      - key: N8N_HOST
+        value: 0.0.0.0
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_DISABLE_UI
+        value: false
+      - key: N8N_METRICS
+        value: false
+      - key: N8N_LOG_LEVEL
+        value: info
+      - key: N8N_LOG_OUTPUT
+        value: console
+      
+      # Security (Set these in Render dashboard)
+      - key: N8N_BASIC_AUTH_USER
+        sync: false  # Set manually in Render dashboard
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false  # Set manually in Render dashboard
+      - key: N8N_ENCRYPTION_KEY
+        sync: false  # Set manually in Render dashboard
+      
+      # Database Configuration (Set these in Render dashboard)
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: n8n-postgres
+          property: host
+      - key: DB_POSTGRESDB_PORT
+        fromDatabase:
+          name: n8n-postgres
+          property: port
+      - key: DB_POSTGRESDB_DATABASE
+        fromDatabase:
+          name: n8n-postgres
+          property: database
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8n-postgres
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8n-postgres
+          property: password
+      
+      # Webhook URL (Will be set automatically by Render)
+      - key: WEBHOOK_URL
+        sync: false  # Set to your actual Render app URL
+      - key: N8N_EDITOR_BASE_URL
+        sync: false  # Set to your actual Render app URL
+      
+      # Data persistence
+      - key: N8N_USER_FOLDER
+        value: /opt/render/project/src/.n8n
+
+  # PostgreSQL Database
+  - type: pserv
+    name: n8n-postgres
+    env: postgresql
+    plan: starter  # Change to 'standard' or 'pro' for production
+    ipAllowList: []  # Allow all IPs (or restrict to your app's IP)
+
+# Optional: Redis for queue processing (uncomment if needed)
+# services:
+#   - type: redis
+#     name: n8n-redis
+#     plan: starter
+#     maxmemoryPolicy: allkeys-lru
+
+# Disk for file storage (optional - data will persist between deployments)
+# disks:
+#   - name: n8n-data
+#     mountPath: /opt/render/project/src/.n8n
+#     sizeGB: 1
